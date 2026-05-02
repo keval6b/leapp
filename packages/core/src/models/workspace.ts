@@ -37,6 +37,7 @@ export class Workspace {
   private _segments: Segment[];
 
   private _colorTheme: string;
+  private _multiSessionHintShown: boolean;
 
   private _requirePassword: number;
   private _touchIdEnabled: boolean;
@@ -229,6 +230,14 @@ export class Workspace {
 
   set ssmRegionBehaviour(ssmRegionBehaviour: string) {
     this._ssmRegionBehaviour = ssmRegionBehaviour;
+  }
+
+  get multiSessionHintShown(): boolean {
+    return this._multiSessionHintShown;
+  }
+
+  set multiSessionHintShown(value: boolean) {
+    this._multiSessionHintShown = value;
   }
 
   get samlRoleSessionDuration(): number {

@@ -464,6 +464,7 @@ export class Repository {
     return {
       colorTheme: workspace.colorTheme,
       credentialMethod: workspace.credentialMethod,
+      multiSessionHintShown: workspace.multiSessionHintShown,
       defaultLocation: workspace.defaultLocation,
       defaultRegion: workspace.defaultRegion,
       macOsTerminal: workspace.macOsTerminal,
@@ -483,6 +484,7 @@ export class Repository {
     const workspace = this.getWorkspace();
     workspace.colorTheme = globalSettingsInput.colorTheme;
     workspace.credentialMethod = globalSettingsInput.credentialMethod;
+    workspace.multiSessionHintShown = globalSettingsInput.multiSessionHintShown;
     workspace.defaultLocation = globalSettingsInput.defaultLocation;
     workspace.defaultRegion = globalSettingsInput.defaultRegion;
     workspace.macOsTerminal = globalSettingsInput.macOsTerminal;

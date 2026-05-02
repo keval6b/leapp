@@ -12,6 +12,7 @@ export interface GlobalSettings {
   segments: Segment[];
   colorTheme: string;
   credentialMethod: string;
+  multiSessionHintShown: boolean;
   samlRoleSessionDuration: number;
   ssmRegionBehaviour: string;
   notifications: LeappNotification[];

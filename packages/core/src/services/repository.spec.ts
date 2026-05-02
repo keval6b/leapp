@@ -1316,6 +1316,7 @@ describe("Repository", () => {
   test("globalSettings, getter", () => {
     mockedWorkspace.colorTheme = "mock-theme";
     mockedWorkspace.credentialMethod = "mock-credential-method";
+    mockedWorkspace.multiSessionHintShown = "mock-multi-session-hint-shown";
     mockedWorkspace.defaultLocation = "mock-default-location";
     mockedWorkspace.defaultRegion = "mock-default-region";
     mockedWorkspace.macOsTerminal = "mock-terminal";
@@ -1331,6 +1332,7 @@ describe("Repository", () => {
     expect(result).toEqual({
       colorTheme: "mock-theme",
       credentialMethod: "mock-credential-method",
+      multiSessionHintShown: "mock-multi-session-hint-shown",
       defaultLocation: "mock-default-location",
       defaultRegion: "mock-default-region",
       macOsTerminal: "mock-terminal",
@@ -1350,6 +1352,7 @@ describe("Repository", () => {
     const mockedGlobalSettings = {
       colorTheme: "mock-theme",
       credentialMethod: "mock-credential-method",
+      multiSessionHintShown: "mock-multi-session-hint-shown",
       defaultLocation: "mock-default-location",
       defaultRegion: "mock-default-region",
       macOsTerminal: "mock-terminal",
@@ -1367,6 +1370,7 @@ describe("Repository", () => {
     expect(repository.getWorkspace).toHaveBeenCalled();
     expect(mockedWorkspace.colorTheme).toEqual("mock-theme");
     expect(mockedWorkspace.credentialMethod).toEqual("mock-credential-method");
+    expect(mockedWorkspace.multiSessionHintShown).toEqual("mock-multi-session-hint-shown");
     expect(mockedWorkspace.defaultLocation).toEqual("mock-default-location");
     expect(mockedWorkspace.defaultRegion).toEqual("mock-default-region");
     expect(mockedWorkspace.macOsTerminal).toEqual("mock-terminal");

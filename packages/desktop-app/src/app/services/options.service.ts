@@ -127,6 +127,17 @@ export class OptionsService {
     this.workspaceService.persistWorkspace(workspace);
   }
 
+  get multiSessionHintShown(): boolean {
+    const workspace = this.workspaceService.getWorkspace();
+    return workspace.multiSessionHintShown;
+  }
+
+  set multiSessionHintShown(value: boolean) {
+    const workspace = this.workspaceService.getWorkspace();
+    workspace.multiSessionHintShown = value;
+    this.workspaceService.persistWorkspace(workspace);
+  }
+
   get samlRoleSessionDuration(): number {
     const workspace = this.workspaceService.getWorkspace();
     return workspace.samlRoleSessionDuration / 60 / 60;
