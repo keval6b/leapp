@@ -44,7 +44,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "Noovolari",
+        "owner": "keval6b",
         "repo": "leapp",
         "releaseType": "release"
       }

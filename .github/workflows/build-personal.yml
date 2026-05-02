@@ -11,6 +11,9 @@ on:
 permissions:
   contents: write
 
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   create-release:
     runs-on: ubuntu-latest
@@ -18,8 +21,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Create draft release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "v${{ inputs.version }}" \
             --title "v${{ inputs.version }}" \
@@ -42,24 +43,11 @@ jobs:
           npm ci
           npm run build
 
-      - name: Build Linux packages
-        env:
-          GH_TOKEN: ""
-          GITHUB_TOKEN: ""
+      - name: Build and publish Linux packages
         run: |
           cd packages/desktop-app
           npm ci
           npm run release-linux
-
-      - name: Upload to release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION="${{ inputs.version }}"
-          gh release upload "v${VERSION}" \
-            "packages/desktop-app/release/Leapp_${VERSION}_amd64.deb" \
-            "packages/desktop-app/release/Leapp-${VERSION}.AppImage" \
-            --clobber
 
   build-windows:
     needs: create-release
@@ -87,25 +75,12 @@ jobs:
           npm ci
           npm run build
 
-      - name: Build Windows package
+      - name: Build and publish Windows package
         shell: bash
-        env:
-          GH_TOKEN: ""
-          GITHUB_TOKEN: ""
         run: |
           cd packages/desktop-app
           npm ci
           npm run release-win
-
-      - name: Upload to release
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION="${{ inputs.version }}"
-          gh release upload "v${VERSION}" \
-            "packages/desktop-app/release/Leapp Setup ${VERSION}.exe" \
-            --clobber
 
   build-macos:
     needs: create-release
@@ -123,22 +98,10 @@ jobs:
           npm ci
           npm run build
 
-      - name: Build macOS package
+      - name: Build and publish macOS package
         env:
-          GH_TOKEN: ""
-          GITHUB_TOKEN: ""
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
         run: |
           cd packages/desktop-app
           npm ci
           npm run release-mac
-
-      - name: Upload to release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION="${{ inputs.version }}"
-          # Upload all DMGs produced (native arch of the runner)
-          gh release upload "v${VERSION}" \
-            packages/desktop-app/release/*.dmg \
-            --clobber
