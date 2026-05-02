@@ -108,23 +108,17 @@
     },
     "mac": {
       "icon": "src/assets/images/Leapp.icns",
-      "forceCodeSigning": true,
-      "notarize": true,
-      "hardenedRuntime": true,
-      "entitlements": "./build/entitlements.mac.plist",
-      "entitlementsInherit": "./build/entitlements.mac.plist",
+      "identity": null,
+      "forceCodeSigning": false,
+      "notarize": false,
+      "hardenedRuntime": false,
       "gatekeeperAssess": false,
       "target": [
         {
-          "target": "zip",
-          "arch": [
-            "arm64"
-          ]
-        },
-        {
           "target": "dmg",
           "arch": [
-            "arm64"
+            "arm64",
+            "x64"
           ]
         }
       ]

@@ -100,8 +100,6 @@ jobs:
           npm run build
 
       - name: Build and publish macOS package
-        env:
-          CSC_IDENTITY_AUTO_DISCOVERY: "false"
         run: |
           cd packages/desktop-app
           npm ci
