@@ -1,0 +1,107 @@
+name: Personal Build & Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g. 0.27.0, no leading v)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create draft release
+        run: |
+          gh release create "v${{ inputs.version }}" \
+            --title "v${{ inputs.version }}" \
+            --draft \
+            --notes "See [CHANGELOG.md](CHANGELOG.md) for details."
+
+  build-linux:
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build core
+        run: |
+          cd packages/core
+          npm ci
+          npm run build
+
+      - name: Build and publish Linux packages
+        run: |
+          cd packages/desktop-app
+          npm ci
+          npm run release-linux
+
+  build-windows:
+    needs: create-release
+    runs-on: windows-latest
+    steps:
+      - name: Configure Git line endings
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Build core
+        shell: bash
+        run: |
+          cd packages/core
+          npm ci
+          npm run build
+
+      - name: Build and publish Windows package
+        shell: bash
+        run: |
+          cd packages/desktop-app
+          npm ci
+          npm run release-win
+
+  build-macos:
+    needs: create-release
+    runs-on: [self-hosted, macOS]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build core
+        run: |
+          cd packages/core
+          npm ci
+          npm run build
+
+      - name: Build and publish macOS package
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: |
+          cd packages/desktop-app
+          npm ci
+          npm run release-mac

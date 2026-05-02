@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.27.0] (2026-05-02)
+
+### Features
+* **AWS native multi-session** — Leapp now opens the AWS web console via AWS's built-in multi-session feature instead of the Leapp browser extension. Each session lands in its own browser subdomain (up to 5 simultaneously), so opening a second account no longer logs you out of the first. Enable it once in the AWS console account menu ("Turn on multi-session") and it applies to all future Leapp-opened sessions.
+* A one-time info toast guides you to enable multi-session on first use.
+
+### Bug Fixes
+* Removed the OAuth logout redirect wrapper (`/oauth?Action=logout&redirect_uri=…`) from the AWS federation URL — AWS now rejects this with a 400, and it was counterproductive for multi-session anyway. Federation URLs are now passed directly to the browser.
+
+### Removed
+* **Browser extension support** — the Leapp Multi-Console Extension (Firefox/Chrome) and the associated WebSocket server (port 8095) have been removed. The Options dialog no longer shows the extension toggle; it now shows a brief guide to enabling AWS native multi-session instead.
+
 ### [0.26.1](https://github.com/Noovolari/leapp/compare/v0.26.0...v0.26.1) (2024-06-05)
 
 ### Bug Fixes

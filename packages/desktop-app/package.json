@@ -1,6 +1,6 @@
 {
   "name": "Leapp",
-  "version": "0.26.1",
+  "version": "0.27.0",
   "private": true,
   "author": {
     "name": "Noovolari",
@@ -44,7 +44,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "Noovolari",
+        "owner": "keval6b",
         "repo": "leapp",
         "releaseType": "release"
       }
