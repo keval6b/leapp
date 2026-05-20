@@ -56,6 +56,14 @@ Leapp can be installed on macOS, Linux, and Windows systems.
 ... and nothing stops you from compiling Leapp yourself! You can find more information about how to
 compile Leapp in our [contributing guidelines](CONTRIBUTING.md).
 
+### macOS — "damaged and can't be opened"
+
+Builds from this fork are unsigned. After dragging Leapp to Applications, macOS Gatekeeper may refuse to open it with a "damaged" error. Clear the quarantine attribute to fix it:
+
+```bash
+xattr -cr /Applications/Leapp.app
+```
+
 # Contributing
 
 Thank you for thinking about contributing to Leapp! 
